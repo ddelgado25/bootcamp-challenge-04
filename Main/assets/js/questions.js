@@ -1,3 +1,4 @@
+// Variables
 var startQuiz = document.querySelector("#startButton");
 var questionSection = document.querySelector("#questions");
 var answer1 = document.querySelector("#answer1");
