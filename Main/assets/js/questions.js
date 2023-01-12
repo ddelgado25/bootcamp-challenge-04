@@ -20,6 +20,12 @@ else{
   highScoreData = [];
 }
 
+startQuiz.addEventListener("click", function(){
+  timerCountdown();
+  document.querySelector("#answers").style.pointerEvents = 'auto';
+  showQuestions();
+});
+
 
 function timerCountdown() {
   var timerInterval = setInterval;
@@ -60,10 +66,6 @@ function endQuiz() {
 }
 
 
-
-
-
-
 // list of all questions, choices, and answers
 var questions = [
   {
@@ -99,3 +101,15 @@ var questions = [
     answer: 'console.log',
   },
 ];
+
+let firstQuestion = 0;
+let lastQuestion = questions.length -1;
+
+function showQuestions(){
+  let cq = questions[firstQuestion];
+  questionSection.textContent = cq.title;
+  answer1.textContent = cq.choices[0];
+  answer2.textContent = cq.choices[1];
+  answer3.textContent = cq.choices[2];
+  answer4.textContent = cq.choices[3];
+}
