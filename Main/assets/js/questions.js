@@ -113,6 +113,21 @@ function showQuestions(){
   answer4.textContent = cq.choices[3];
 }
 
+function answerCheck(userAnswer){
+  console.log(userAnswer);
+
+  if(userAnswer == questions[firstQuestion].answer){
+    highscore = highscore + 10;
+    firstQuestion++;
+    showQuestions();
+  }
+  else{
+    timerLeft = timerLeft -10;
+    firstQuestion++;
+    showQuestions();
+  }
+}
+
 
 function playerRank(){
 
