@@ -28,8 +28,7 @@ startQuiz.addEventListener("click", function(){
 
 
 function timerCountdown() {
-  var timerInterval = setInterval;
-  function TL() {
+  var timerInterval = setInterval(function() {
     document.querySelector("#startButton").style.pointerEvents = 'none';
     timerLeft--;
     startQuiz.textContent = timerLeft + " seconds left.";
@@ -41,7 +40,7 @@ function timerCountdown() {
       return;
     }
     
-  } 1000;
+  }, 1000);
     
 }
 
