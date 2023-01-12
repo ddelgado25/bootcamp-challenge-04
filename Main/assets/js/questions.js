@@ -7,6 +7,41 @@ var answer2 = document.querySelector("#answer2");
 var answer3 = document.querySelector("#answer3");
 var answer4 = document.querySelector("#answer4");
 
+// TIMER AND HIGHSCORE
+let timerLeft = 75;
+let highscore = 0;
+
+// LOCAL STORAGE
+if (localStorage.getItem("playerdata")) {
+  var highScoreData = JSON.parse(localStorage.getItem("playerdata"));
+  
+}
+else{
+  highScoreData = [];
+}
+
+
+function timerCountdown() {
+  var timerInterval = setInterval;
+  function TL() {
+    document.querySelector("#startButton").style.pointerEvents = 'none';
+    timerLeft--;
+    startQuiz.textContent = timerLeft + " seconds left.";
+
+    if(timerLeft <= 0 || firstQuestion > lastQuestion){
+      clearInterval(timerInterval);
+      startQuiz.textContent = "All Done!";
+      endQuiz();
+      return;
+    }
+    
+  },1000;
+    
+}
+
+
+
+
 
 
 // list of all questions, choices, and answers
