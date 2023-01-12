@@ -1,6 +1,7 @@
 // Variables
 var startQuiz = document.querySelector("#startButton");
 var questionSection = document.querySelector("#questions");
+var highScores = document.querySelector("#highscores")
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
 var answer3 = document.querySelector("#answer3");
