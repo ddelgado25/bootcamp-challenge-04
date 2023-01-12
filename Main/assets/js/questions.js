@@ -35,8 +35,28 @@ function timerCountdown() {
       return;
     }
     
-  },1000;
+  } 1000;
     
+}
+
+
+function endQuiz() {
+  answer1.textContent = "";
+  answer2.textContent = "";
+  answer3.textContent = "";
+  answer4.textContent = "";
+  document.querySelector("#answers").style.pointerEvents = 'none';
+  var finalScore = JSON.stringify(highScores);
+  var enterInitials = prompt("Enter your Initials.");
+  var playerData = {
+    playerInitials: enterInitials,
+    playerScore: finalScore
+  }
+
+  highScoreData.push(playerData);
+  localStorage.setItem("playerdata", JSON.stringify(highScoreData));
+  window.location.href = '/highscores.html';
+  return;
 }
 
 
