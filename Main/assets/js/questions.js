@@ -1,28 +1,30 @@
 // Variables
 var startQuiz = document.querySelector("#startButton");
 var questionSection = document.querySelector("#questions");
-var highScores = document.querySelector("#highscores")
+// var highScores = document.querySelector("#highscores")
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
 var answer3 = document.querySelector("#answer3");
 var answer4 = document.querySelector("#answer4");
+const answerButtons = document.querySelector('.answer-button');
+var finalScoreDiv = document.querySelector('.final-score')
 
 // TIMER AND HIGHSCORE
 let timerLeft = 75;
 let highscore = 0;
 
-// LOCAL STORAGE
-if (localStorage.getItem("playerdata")) {
-  var highScoreData = JSON.parse(localStorage.getItem("playerdata"));
+//  LOCAL STORAGE
+ if (localStorage.getItem("playerdata")) {
+   var highScoreData = JSON.parse(localStorage.getItem("playerdata"));
   
-}
-else{
-  highScoreData = [];
-}
+ }
+ else{
+   highScoreData = [];
+ }
 
 startQuiz.addEventListener("click", function(){
   timerCountdown();
-  document.querySelector("#answers").style.pointerEvents = 'auto';
+  document.querySelector(".answer-button").style.pointerEvents = 'auto';
   showQuestions();
 });
 
@@ -50,18 +52,17 @@ function endQuiz() {
   answer2.textContent = "";
   answer3.textContent = "";
   answer4.textContent = "";
-  document.querySelector("#answers").style.pointerEvents = 'none';
-  var finalScore = JSON.stringify(highScores);
+  document.querySelector(".answer-button").style.pointerEvents = 'none';
   var enterInitials = prompt("Enter your Initials.");
   var playerData = {
     playerInitials: enterInitials,
-    playerScore: finalScore
+    playerScore: highscore
   }
-
+  console.log(62)
+  finalScoreDiv.textContent =`${playerData.playerInitials}; ${playerData.playerScore}`
   highScoreData.push(playerData);
   localStorage.setItem("playerdata", JSON.stringify(highScoreData));
-  window.location.href = '/highscores.html';
-  return;
+  return false;
 }
 
 
@@ -105,6 +106,7 @@ let firstQuestion = 0;
 let lastQuestion = questions.length -1;
 
 function showQuestions(){
+  console.log(firstQuestion)
   let cq = questions[firstQuestion];
   questionSection.textContent = cq.title;
   answer1.textContent = cq.choices[0];
@@ -113,13 +115,18 @@ function showQuestions(){
   answer4.textContent = cq.choices[3];
 }
 
-function answerCheck(userAnswer){
-  console.log(userAnswer);
+function answerCheck(e){
+  console.log(e);
+  const userGuess = e.target.textContent;
+  console.warn(userGuess);
+  console.warn(questions[firstQuestion].answer);
 
-  if(userAnswer == questions[firstQuestion].answer){
+  if(userGuess == questions[firstQuestion].answer){
+
     highscore = highscore + 10;
     firstQuestion++;
     showQuestions();
+
   }
   else{
     timerLeft = timerLeft -10;
@@ -129,44 +136,46 @@ function answerCheck(userAnswer){
 }
 
 
-function playerRank(){
+answerButtons.addEventListener('click', answerCheck);
 
-  if (localStorage.getItem("playerdata")){
-    highScoreData = JSON.parse(localStorage.getItem("playerdata"));
+// function playerRank(){
 
-    highScoreData.sort(function scoreOrder(a,b){
-      if (a.playerScore > b.playerScore){
-        return -1;
+//   if (localStorage.getItem("playerdata")){
+//     highScoreData = JSON.parse(localStorage.getItem("playerdata"));
+
+//     highScoreData.sort(function scoreOrder(a,b){
+//       if (a.playerScore > b.playerScore){
+//         return -1;
         
-      }
-      if (a.playerScore < b.playerScore) {
-        return 1;
+//       }
+//       if (a.playerScore < b.playerScore) {
+//         return 1;
 
-      }
-      if (a.playerScore == b.playerScore) {
-        return 0;
+//       }
+//       if (a.playerScore == b.playerScore) {
+//         return 0;
         
-      }
-    });
-  }
-    else{
-      highScoreData = [];
-    }
+//       }
+//     });
+//   }
+//     else{
+//       highScoreData = [];
+//     }
   
 
 
 
-  localStorage.setItem("playerdata" , JSON.stringify(highScoreData))
-  for (var i = 0; i < highScoreData.length; i++) {
-  var userRank = highScoreData[i].playerInitials;
-  var userScore = highScoreData[i].playerScore;
+//   localStorage.setItem("playerdata" , JSON.stringify(highScoreData))
+//   for (var i = 0; i < highScoreData.length; i++) {
+//   var userRank = highScoreData[i].playerInitials;
+//   var userScore = highScoreData[i].playerScore;
 
-  var li = document.createElement("li");
-  li.textContent = userRank + " " + userScore;
-  li.setAttribute("playerdata" , i);
-  highScores.appendChild(li);
+//   var li = document.createElement("li");
+//   li.textContent = userRank + " " + userScore;
+//   li.setAttribute("playerdata" , i);
+//   highScores.appendChild(li);
   
-  }
-}  
+//   }
+// }  
 
-playerRank();
+// playerRank();
